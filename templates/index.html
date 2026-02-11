@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Couchbase Comments Demo</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Comments (Couchbase)</h1>
+
+    <section class="new-comment">
+      <h2>New comment</h2>
+      <div class="form-row">
+        <input id="rootAuthor" class="input" placeholder="author name" />
+      </div>
+      <div class="form-row">
+        <textarea id="rootText" class="textarea" placeholder="Comment text"></textarea>
+      </div>
+      <div class="form-row">
+        <button id="sendRoot" class="btn">Send</button>
+      </div>
+    </section>
+
+    <section>
+      <div class="toolbar">
+        <button id="reload" class="btn btn-secondary">Refresh</button>
+      </div>
+      <div id="comments"></div>
+    </section>
+  </main>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
