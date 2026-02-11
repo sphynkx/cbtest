@@ -43,7 +43,7 @@ Use: http://localhost:8800/ Add some branch of comments.. In DB console repeat Q
 
 
 ## Queries
-Full comments branch^
+Full comments branch:
 ```sql
 SELECT c.*
 FROM `comments`.`_default`.`_default` c
