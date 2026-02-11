@@ -40,3 +40,52 @@ uvicorn main:app --reload --port 8800
 Check health: http://localhost:8800/api/health
 
 Use: http://localhost:8800/ Add some branch of comments.. In DB console repeat Query (as above)..
+
+
+## Queries
+Full comments branch^
+```sql
+SELECT c.*
+FROM `comments`.`_default`.`_default` c
+WHERE c.type="comment" AND c.thread_id="thread::demo"
+ORDER BY c.created_at;
+```
+
+Only root comments:
+```sql
+SELECT c.*
+FROM `comments`.`_default`.`_default` AS c
+WHERE c.type="comment"
+  AND c.thread_id="thread::demo"
+  AND (c.parent_id IS MISSING OR c.parent_id IS NULL OR c.parent_id = "")
+ORDER BY c.created_at;
+```
+
+One level child replies on comment with <ID>:
+```sql
+SELECT c.*
+FROM `comments`.`_default`.`_default` AS c
+WHERE c.type="comment"
+  AND c.thread_id="thread::demo"
+  AND c.parent_id="comment::<ID>"
+ORDER BY c.created_at;
+```
+
+Subbranch from comment with <ID>:
+```sql
+SELECT c.*
+FROM `comments`.`_default`.`_default` AS c
+WHERE c.type="comment"
+  AND c.thread_id="thread::demo"
+  AND ANY p IN c.path SATISFIES p="comment::<ID>" END
+ORDER BY c.created_at;
+```
+
+Branch deepness:
+```sql
+SELECT MAX(c.depth) AS max_depth, COUNT(1) AS total
+FROM `comments`.`_default`.`_default` AS c
+WHERE c.type="comment" AND c.thread_id="thread::demo";
+```
+
+
